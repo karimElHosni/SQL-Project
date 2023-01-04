@@ -1,0 +1,76 @@
+<div *ngIf="!isEdit()">
+  <h1 class="title">Ajouter un plan</h1>
+</div>
+<div *ngIf="isEdit()">
+  <h1 class="title">Modifier un plan</h1>
+</div>
+  
+<div>
+  <form [formGroup]="this.form" class="form">
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Numéro du plan</mat-label>
+        <input [readonly]="isEdit()" matInput #input maxlength="4" minlength="4" formControlName="planNumber" placeholder="Ex : p004">
+        <mat-hint align="end">{{input.value.length}}/4</mat-hint>
+    </mat-form-field>
+      
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>Selectionner le fournisseur</mat-label>
+      <mat-select formControlName="supplierNumber">
+        <div *ngFor="let supplier of suppliers">
+          <mat-option value="{{supplier.numerofournisseur}}">{{supplier.numerofournisseur}} {{supplier.nomfournisseur}}</mat-option>
+        </div>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field class="input" appearance="fill">
+      <mat-label>La catégorie de votre plan</mat-label>
+      <input matInput #input formControlName="category" minlength="1" maxlength="15" placeholder="Ex : Végétarien">
+    </mat-form-field>
+
+    <div class="input" >
+      <p>Nombre de personnes</p>
+      <div class="stepper">
+        <button mat-mini-fab color="primary" class="minus-button control-button" [disabled]="isAtMin('people')" (click)="toggleMinus('people')"><mat-icon class="button-icon">remove</mat-icon></button>
+        <span class="timer-value-text"> {{ valueNbPeople }} personnes</span>
+        <button mat-mini-fab color="primary" class="plus-button control-button" [disabled]="isAtMax('people')" (click)="togglePlus('people')"><mat-icon class="button-icon">add</mat-icon></button>
+      </div>
+    </div>
+
+    <div class="input" >
+      <p>Fréquence du plan repas</p>
+        <div class="stepper">
+          <button mat-mini-fab color="primary" class="minus-button control-button" [disabled]="isAtMin('frequency')" (click)="toggleMinus('frequency')"><mat-icon class="button-icon">remove</mat-icon></button>
+          <span class="timer-value-text"> {{ valueFrequency }} fois par mois</span>
+          <button mat-mini-fab color="primary" class="plus-button control-button" [disabled]="isAtMax('frequency')" (click)="togglePlus('frequency')"><mat-icon class="button-icon">add</mat-icon></button>
+      </div>
+
+    </div>
+    
+    <div class="input" >
+      <p>Nombre de calories</p>
+        <div class="stepper">
+          <button mat-mini-fab color="primary" class="minus-button control-button" [disabled]="isAtMin('calories')" (click)="toggleMinus('calories')"><mat-icon class="button-icon">remove</mat-icon></button>
+          <span class="timer-value-text"> {{ valueCalories }} calories</span>
+          <button mat-mini-fab color="primary" class="plus-button control-button" [disabled]="isAtMax('calories')" (click)="togglePlus('calories')"><mat-icon class="button-icon">add</mat-icon></button>
+      </div>
+    </div>
+
+    <div class="input" >
+      <mat-form-field appearance="fill" floatLabel="always">
+        <mat-label>Prix du plan</mat-label>
+        <input matInput formControlName="price" placeholder="Ex : 49.99">
+        <mat-hint>Le prix doit se situer entre 10.00$ et 99.99$</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="!isEdit()">
+      <button mat-raised-button class="validation"  color="accent" type="submit" [disabled]="isDisabled()" (click)="validateInfos()">Valider les informations</button>
+    </div>
+    <div *ngIf="isEdit()">
+      <button mat-raised-button class="validation" color="accent" type="submit" [disabled]="isDisabled()" (click)="validateInfos()">Mettre à jour les informations</button>
+    </div>
+  </form>
+</div>

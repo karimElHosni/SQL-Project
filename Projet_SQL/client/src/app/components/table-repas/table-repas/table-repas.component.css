@@ -1,0 +1,9 @@
+table {
+    width: 100%;
+    border: 2vh;
+}
+
+.container{
+    justify-items: center;
+    margin-top: 10vh;
+}

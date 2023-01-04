@@ -1,0 +1,13 @@
+.buttons{
+    display: flex;
+}
+
+button{
+    margin-left: 1vh;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
